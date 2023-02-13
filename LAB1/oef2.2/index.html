@@ -11,22 +11,26 @@
 <div>The scraped title is:<a id="scraped"></a></div>
 <br>
 <input id="urlBox" value="http://127.0.0.1:5500/page2.html">
-<button onclick="myFunction()">Scrape</button>
+<button onclick="grabTargetTitle()">Scrape</button>
 
 <script>
-function myFunction() {
-    document.getElementById("scraped").innerHTML = ""
-    var target = document.getElementById("urlBox");
-    var popup = window.open(target.value, "_blank");
+function grabTargetTitle() {
+    updateHolder("");
+    var target = document.getElementById("urlBox").value;
+    var popup = window.open(target, "_blank");
     popup.onload = function() {
         setTimeout(function () {
             try {
-                document.getElementById("scraped").innerHTML = popup.document.title
+                updateHolder(popup.document.title);
             } catch (err) {
-                console.log("x")
+                console.log("Error")
             }
         }, 2000);
     }
+}
+
+function updateHolder(content){
+    document.getElementById("scraped").innerHTML = content
 }
 </script>
 
