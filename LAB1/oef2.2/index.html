@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+<title>Page1</title>
+<style>
+    h2{color:red}
+    a{color:green}
+</style>
+
+<h2>This tool scrapes the targetted website's title</h2>
+<div>The scraped title is:<a id="scraped"></a></div>
+<br>
+<input id="urlBox" value="http://127.0.0.1:5500/page2.html">
+<button onclick="grabTargetTitle()">Scrape</button>
+
+<script>
+function grabTargetTitle() {
+    updateHolder("");
+    var target = document.getElementById("urlBox").value;
+    var popup = window.open(target, "_blank");
+    popup.onload = function() {
+        setTimeout(function () {
+            try {
+                updateHolder(popup.document.title);
+            } catch (err) {
+                console.log("Error")
+            }
+        }, 2000);
+    }
+}
+
+function updateHolder(content){
+    document.getElementById("scraped").innerHTML = content
+}
+</script>
+
+</body>
+</html>
